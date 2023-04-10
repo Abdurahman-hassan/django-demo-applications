@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponsePermanentRedirect
+from django.shortcuts import render, redirect
 from django.template import loader
+from django.urls import reverse
 from django.views import View
 
 
@@ -134,3 +135,8 @@ def getform(request):
     return render(request, 'showData.html', context=context)
 
 
+def make_user_permanent_redirect(request):
+    """Redirect the user to the permanent url."""
+    # return HttpResponsePermanentRedirect(reverse('demoApp:showform'))
+    # or
+    return redirect(reverse('demoApp:showform'), permanent=True)
