@@ -16,6 +16,7 @@ urlpatterns = [
     path('showform/', views.showform, name="showform"),
     path('getform/', views.getform, name="redirect_get_form_data"),
     path('getdish/<str:dish_name>', views.custom_path_view, name='custompath'),
+    path('permanent_redirect/', views.make_user_permanent_redirect, name='permanent_redirect'),
 
     # regex
     re_path(r'^getuser/(?P<name>[a-z]+)/(?P<id>[0-9]{1,2})/$', views.pathview, name='pathview'),
