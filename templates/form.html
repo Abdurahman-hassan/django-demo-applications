@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+# redirection after form submission call the redirect_get_form_data function in views.py
+<form action="{% url 'demoApp:redirect_get_form_data' %}" method="POST">
+    {% csrf_token %}
+    <p>Name :<input type="text" name="name"></p>
+    <p>UserID: <input type="number" name="id"></p>
+    <input type="submit">
+</form>
+
+</body>
+</html>
