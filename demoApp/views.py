@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import loader
 from django.views import View
 
 
@@ -67,7 +68,7 @@ class MyView(View):
                                                            response.headers)
             return HttpResponse(status=200, content=content, headers=alot_of_headers)
         else:
-            return HttpResponse(f"The request.user is authenticated.")
+            return HttpResponse(f"The request.user is not authenticated.")
 
     def post(self, request):
         # <logic to process POST request>
@@ -75,7 +76,25 @@ class MyView(View):
 
 
 def pathview(request, name, id):
+    """
+    Display the pathview page.
+
+    we used the following regex in the urls.py file:
+    re_path(r'^getuser/(?P<name>[a-z]+)/(?P<id>[0-9]{1,2})/$', views.pathview, name='pathview'),
+    """
+
     return HttpResponse(f"{name}{id}")
+
+
+def pathview2(request, id):
+    """
+    Display the pathview page
+
+    we used the following regex in the urls.py file:
+    re_path(r'^use_regex/getuser/([0-9]{1,2})/$', views.pathview2, name='pathview'),
+    """
+
+    return HttpResponse(f"{id}")
 
 
 def custom_path_view(request, dish_name):
@@ -97,10 +116,16 @@ def qryview(request):
 
 
 def showform(request):
+    """Display the form page."""
+    # or
+    # template = loader.get_template('form.html')
+    # context = {}
+    # return HttpResponse(template.render(context, request))
     return render(request, "form.html")
 
 
 def getform(request):
+    """Display the form page."""
     if request.method == 'POST':
         name = request.POST['name']
         id = request.POST['id']
@@ -109,5 +134,3 @@ def getform(request):
     return render(request, 'showData.html', context=context)
 
 
-def pathview2(request, id):
-    return HttpResponse(f"{id}")
