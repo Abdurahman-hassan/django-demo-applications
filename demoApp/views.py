@@ -1,14 +1,22 @@
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 
 
-
+# function based views
 def handler404(request, exception):
+    """Custom 404 page."""
     return render(request, '404.html', status=404)
+
+def display_date(request):
+    """Display the current date and time."""
+    return HttpResponse("This page was served at %s" % datetime.now())
 
 
 def index(request):
+    """Display the index page."""
     return HttpResponse("Hello, world. This is the index view of Demoapp.")
 
 
@@ -27,7 +35,9 @@ def index(request):
 #     return render(request, context=context)
 
 
+# class based views
 class MyView(View):
+    """Class based view for testing request and response objects."""
     def get(self, request):
         if not request.user.is_authenticated:
             # logic to process GET request
