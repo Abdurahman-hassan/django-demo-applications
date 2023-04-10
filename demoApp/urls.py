@@ -9,6 +9,7 @@ handler404 = 'demoApp.views.handler404'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('display_date/', views.display_date, name='display_date'),
     path('testmethods/', views.MyView.as_view(), name='testmethods'),
     # path('getuser/<str:name>/<int:id>', views.pathview, name='pathview'),
     path('getuser/', views.qryview, name='qryview'),
