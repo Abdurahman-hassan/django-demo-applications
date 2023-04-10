@@ -16,7 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from bulidDjango import views
+
 urlpatterns = [
     path('demo/', include('demoApp.urls')),
     path('admin/', admin.site.urls),
+    path('test/', views.test_page, name='test_page'),
 ]
+
+handler404 = 'bulidDjango.views.handler404'
