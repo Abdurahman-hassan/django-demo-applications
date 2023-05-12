@@ -12,6 +12,7 @@ def handler404(request, exception):
     """Custom 404 page."""
     return render(request, '404.html', status=404)
 
+
 def display_date(request):
     """Display the current date and time."""
     return HttpResponse("This page was served at %s" % datetime.now())
@@ -22,19 +23,19 @@ def index(request):
     return HttpResponse("Hello, world. This is the index view of Demoapp.")
 
 
-# def myview(request):
-#     if request.method == 'GET':
-#         # perform read or delete operation on the model
-#         # val = request.GET['key']
-#         print("hello")
-#
-#     if request.method == 'POST':
-#         # perform insert or update operation on the model
-#         # val = request.POST['key']
-#         # print(val)
-#         context = {}  # dict containing data to be sent to the client
-#
-#     return render(request, context=context)
+def test_view(request):
+    if request.method == 'GET':
+        # perform read or delete operation on the model
+        # val = request.GET['key']
+        print("hello")
+
+    if request.method == 'POST':
+        # perform insert or update operation on the model
+        # val = request.POST['key']
+        # print(val)
+        context = {}  # dict containing data to be sent to the client
+
+    return render(request, context=context)
 
 
 # class based views
@@ -110,10 +111,13 @@ def custom_path_view(request, dish_name):
     return render(request, 'dish.html', context={"dish_name": dish_name})
 
 
-def qryview(request):
-    name = request.GET['name']
-    id = request.GET['id']
-    return HttpResponse("Name:{} UserID:{}".format(name, id))
+def query_view(request):
+    try:
+        name = request.GET['name']
+        id = request.GET['id']
+        return HttpResponse(f"{name}{id}")
+    except KeyError:
+        return HttpResponse("Please enter the name and id in the url")
 
 
 def showform(request):
