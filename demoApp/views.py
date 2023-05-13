@@ -1,10 +1,11 @@
 from datetime import datetime
 
-from django.http import HttpResponse, HttpResponsePermanentRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import loader
 from django.urls import reverse
 from django.views import View
+
+from demoApp.forms import DemoForm
 
 
 # function based views
@@ -41,6 +42,7 @@ def test_view(request):
 # class based views
 class MyView(View):
     """Class based view for testing request and response objects."""
+
     def get(self, request):
         if not request.user.is_authenticated:
             # logic to process GET request
@@ -144,3 +146,19 @@ def make_user_permanent_redirect(request):
     # return HttpResponsePermanentRedirect(reverse('demoApp:showform'))
     # or
     return redirect(reverse('demoApp:showform'), permanent=True)
+
+class TestForm(View):
+    def get(self, request):
+        """Display the form page."""
+        form = DemoForm()
+        return render(request, 'form2.html', context={'form': form})
+
+    def post(self, request):
+        """Display the form page."""
+        form = DemoForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            address = form.cleaned_data['address']
+            return render(request, 'show_data.html', context={'name': name, 'email': email, 'address': address})
+        return render(request, 'form2.html', context={'form': form})
