@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    {#  to be rendeed if the user has been authenticated  #}
+    <p>Hello {{ user }}</p>
+{% else %}
+    <p>You are not authenticated</p>
+{% endif %}
+
+
+{% if perms.myapp.change_category %}
+  {#  To be rendered for users having required permission #}
+{% endif %}
+
+</body>
+</html>
