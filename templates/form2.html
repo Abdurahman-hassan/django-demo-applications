@@ -5,11 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{% url 'demoApp:test_form' %}" method="post">
+<div>
+    <form action="{% url 'demoApp:test_form' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="submit">
 </form>
-
+</div>
 </body>
 </html>
