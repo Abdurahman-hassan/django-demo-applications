@@ -1,6 +1,8 @@
 """Demo App Form."""
 from django import forms
 
+from demoApp.models import Demo
+
 FAVOURITE_DISH = [
     ("Egyptian", "Egyptian"),
     ("Italian", "Italian"),
@@ -54,3 +56,8 @@ class DemoForm(forms.Form):
 
                                            widget=forms.RadioSelect, choices=FAVOURITE_DISH)
 
+
+class DemoModelForm(forms.ModelForm):
+   class Meta:
+       model = Demo
+       fields = '__all__'
