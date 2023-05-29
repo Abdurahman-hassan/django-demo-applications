@@ -1,14 +1,28 @@
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
+from django.views.generic import ListView
 
-from demoApp.forms import DemoForm
+from demoApp.forms import DemoForm, DemoModelForm
+from demoApp.models import Menu
 
 
-# function based views
+def testpermission(user):
+    """Test if the user has the required permission."""
+    if user.is_authenticated and user.has_perm("demoApp.change_Demo"):
+        return True
+    else:
+        return False
+
+    # function based views
+
+
 def handler404(request, exception):
     """Custom 404 page."""
     return render(request, '404.html', status=404)
@@ -16,9 +30,14 @@ def handler404(request, exception):
 
 def display_date(request):
     """Display the current date and time."""
+    # add permission check the first way
+    if request.user.is_anonymous:
+        raise PermissionDenied()
     return HttpResponse("This page was served at %s" % datetime.now())
 
 
+# add permission check the second way
+@login_required
 def index(request):
     """Display the index page."""
     return HttpResponse("Hello, world. This is the index view of Demoapp.")
@@ -79,6 +98,9 @@ class MyView(View):
         return HttpResponse('response to POST request')
 
 
+# This is the Third way to check permissions
+# we can add URL into it to go to login.
+@user_passes_test(testpermission, login_url='/admin/login/')
 def pathview(request, name, id):
     """
     Display the pathview page.
@@ -90,6 +112,8 @@ def pathview(request, name, id):
     return HttpResponse(f"{name}{id}")
 
 
+# this is the fourth way to check permissions
+@permission_required('demoApp.change_Demo', login_url='/admin/login/')
 def pathview2(request, id):
     """
     Display the pathview page
@@ -147,6 +171,7 @@ def make_user_permanent_redirect(request):
     # or
     return redirect(reverse('demoApp:showform'), permanent=True)
 
+
 class TestForm(View):
     def get(self, request):
         """Display the form page."""
@@ -162,3 +187,28 @@ class TestForm(View):
             address = form.cleaned_data['address']
             return render(request, 'show_data.html', context={'name': name, 'email': email, 'address': address})
         return render(request, 'form2.html', context={'form': form})
+
+
+class DemoModelFormView(View):
+    def get(self, request):
+        """Display the form page."""
+        form = DemoModelForm()
+        return render(request, 'form3.html', context={'form': form})
+
+    def post(self, request):
+        """Display the form page."""
+        form = DemoModelForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            address = form.cleaned_data['address']
+            form.save()
+            return render(request, 'show_data.html', context={'name': name, 'email': email, 'address': address})
+        return render(request, 'form3.html', context={'form': form})
+
+
+class ProductListView(PermissionRequiredMixin, ListView):
+    login_url = "/admin/login/"
+    permission_required = "myapp.change_Demo"
+    template_name = "product.html"
+    model = Menu
