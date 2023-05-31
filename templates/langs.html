@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+{% comment %}
+Add another template
+{% endcomment %}
+{% include 'product.html' %}
+
     <h1>Langs</h1>
 
     {% for lang in langs %}
@@ -12,10 +17,52 @@
         {% endfor %}
     </ul>
 
+    <ul>
+        {% for lang in langs %}
+        <li>{{ forloop.revcounter }} : {{ lang }}</li>
+        {% endfor %}
+
+    </ul>
+
+    <ul>
+        {% for lang in langs %}
+        {% comment  %}
+            forloop.first: True if this is the first time through the loop
+        {% endcomment %}
+        <li>{{ forloop.first }} : {{ lang }}</li>
+
+        {% comment  %}
+            forloop.last: True if this is the last time through the loop
+        {% endcomment %}
+        <li>{{ forloop.last }} : {{ lang }}</li>
+        {% endfor %}
+    </ul>
+
     {% for key,value in dict_example.items %}
         <p>{{ key }} - {{ value }}</p>
     {% endfor %}
 
+    <h1>Nested loops</h1>
+    {% for key, values in dct.items %}
+        <p>{{ forloop.counter }}:{{ key }}</p>
+        <ul>
+            {% for value in values %}
+            <li> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 
+{% with rate=5 %}
+    {% for number in numbers %}
+        Interest = {{ number|floatformat:2 }} * {{ rate }}
+    {% endfor %}
+{% endwith %}
 
+    <p>{{ value|default:"nothing" }}</p>
+    <p>{{ word|first }}</p>
+    <p>{{ word|length }}</p>
+    <p>{{ word|length_is:"5" }}</p>
+    <p>{{ word|join:" _ " }} </p>
+    <p>{{ word|title }}</p>
+    <p>{{ word|wordcount }}</p>
 {% endblock content %}
