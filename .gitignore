@@ -142,7 +142,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-./data.cnf
 
 # Spyder project settings
 .spyderproject
