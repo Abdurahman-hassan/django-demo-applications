@@ -218,7 +218,12 @@ def showing_data(request):
     """Display the form page."""
     langs = ["python", "java", "c++", "c"]
     dict_example = {1: "java", 2: "python", 3: "c++", 4: "c"}
-
+    dct = {'digits': ['One', 'Two', 'Three'], 'tens': ['Ten', 'Twenty', 'Thirty']}
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     context = {"langs": langs,
-               "dict_example": dict_example,}
+               "dict_example": dict_example,
+               "dct": dct,
+               "numbers": numbers,
+               "value": None,
+               "word": "Hello World",}
     return render(request, 'langs.html', context=context)
