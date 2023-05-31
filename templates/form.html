@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
 <form action="{% url 'demoApp:redirect_get_form_data' %}" method="POST">
     {% csrf_token %}
     <p>Name :<input type="text" name="name"></p>
     <p>UserID: <input type="number" name="id"></p>
     <input type="submit">
 </form>
-</body>
-</html>
+{% endblock content %}
