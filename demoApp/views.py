@@ -217,7 +217,7 @@ class ProductListView(PermissionRequiredMixin, ListView):
 def showing_data(request):
     """Display the form page."""
     langs = ["python", "java", "c++", "c"]
-    dict_example = {1: "apple", 2: "banana", 3: "cherry"}
+    dict_example = {1: "java", 2: "python", 3: "c++", 4: "c"}
 
     context = {"langs": langs,
                "dict_example": dict_example,}
