@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% comment "This is a comment" %}
+{% endcomment %}
 {% block content %}
-My fav is: {{ dish_name }}
+My fav is: {{ dish_name|upper }}
 {% endblock content %}
