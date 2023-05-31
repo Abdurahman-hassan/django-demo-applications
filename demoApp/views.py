@@ -212,3 +212,13 @@ class ProductListView(PermissionRequiredMixin, ListView):
     permission_required = "myapp.change_Demo"
     template_name = "product.html"
     model = Menu
+
+
+def showing_data(request):
+    """Display the form page."""
+    langs = ["python", "java", "c++", "c"]
+    dict_example = {1: "apple", 2: "banana", 3: "cherry"}
+
+    context = {"langs": langs,
+               "dict_example": dict_example,}
+    return render(request, 'langs.html', context=context)

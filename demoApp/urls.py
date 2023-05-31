@@ -25,6 +25,7 @@ urlpatterns = [
     re_path(r'^getuser/(?P<name>[a-z]+)/(?P<id>[0-9]{1,2})/$', views.pathview, name='pathview'),
     re_path(r'^use_regex/getuser/([0-9]{1,2})/$', views.pathview2, name='pathview'),
     path('products/', views.ProductListView.as_view(), name='products'),
+    path('langs/', views.showing_data, name='langs'),
 
     # url(r'^users_only/', login_required(myview)),
     #
