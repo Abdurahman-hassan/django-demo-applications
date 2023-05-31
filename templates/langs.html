@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Langs</h1>
+
+    {% for lang in langs %}
+        <p>{{ lang }}</p>
+    {% endfor %}
+
+    <ul>
+        {% for lang in langs %}
+        <li>{{ forloop.counter }} : {{ lang }}</li>
+        {% endfor %}
+    </ul>
+
+    {% for key,value in dict_example.items %}
+        <p>{{ key }} - {{ value }}</p>
+    {% endfor %}
+
+
+
+{% endblock content %}
