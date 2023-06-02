@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-{% block content %}
-{% endblock content %}
+{% include '_header.html' %}
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 </body>
 </html>
