@@ -1,4 +1,4 @@
-# django-demo-applications
+# django-demo-applications (Maxmillian)
 
 This repository contains a demo Django application that is intended for learning and practice purposes.
 
